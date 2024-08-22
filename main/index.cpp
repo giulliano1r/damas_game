@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 
-int start_game(int (&matriz)[8][8]){
+int iniciar_tabuleiro(int (&matriz)[8][8]){
     
     const int linhas = 8;
     const int colunas = 8;
@@ -28,8 +28,6 @@ int start_game(int (&matriz)[8][8]){
             matriz[i][j] = 9;
         }
     }
-
-    
 }
 
 int imprimir_tabuleiro(int (&matriz)[8][8]){
@@ -50,11 +48,9 @@ int imprimir_tabuleiro(int (&matriz)[8][8]){
         cout << v[i] << " " ;
     }
     cout << endl;
-
 }
 
 bool verifica_mover(int (&matriz)[8][8], int linha, int coluna){
-    cout << linha << " aquii " << coluna << endl;
     if (matriz[linha + 1][coluna] == 0) { 
         return true;
     }
@@ -68,8 +64,27 @@ bool verifica_tomar(int (&matriz)[8][8], int linha, int coluna){
     return false;
 }
 
+int mover_peca(int (&matriz)[8][8],int linha, int coluna) {
+    matriz[linha + 1][coluna] = 1;
+    matriz[linha][coluna] = 0;
+    imprimir_tabuleiro(matriz);
+}
+
+int realizar_acoes(int (&matriz)[8][8], int acao, int linha, int coluna){
+    switch (acao){
+        case 1: 
+            mover_peca(matriz,linha,coluna);
+            break;
+        case 2:
+            //funcao tomar
+            break;
+    }
+}
+
 int escolher_peca(int (&matriz)[8][8]){
     int x,y;
+    int acao;
+
     cout << "escolha a peca que deseja ultilziar" << endl;
     cin >> x >> y;
     x = x - 1;
@@ -78,7 +93,6 @@ int escolher_peca(int (&matriz)[8][8]){
     if (matriz[x][y] == 1){ 
         bool mover = verifica_mover(matriz,x,y);
         bool tomar = verifica_tomar(matriz,x,y);
-        int acao;
 
         if (mover) {
             cout << "1. Digite 1 para mover-se" << endl;
@@ -92,15 +106,18 @@ int escolher_peca(int (&matriz)[8][8]){
             cin >> acao;
         }
         else if (tomar){
-            cout << "1. Digite 1 para tomar" << endl;
+            cout << "2. Digite 2 para tomar" << endl;
             cout << "3. Digite 3 para escolher outra peca" << endl;
             cin >> acao;
         }
         else{
-            cout << "1. Digite 1 para ficar" << endl;
-            cout << "3. Digite 3 para escolher outra peca" << endl;
-            cin >> acao;
+            cout << "nenhuma acao disponivel" << endl;
+            escolher_peca(matriz);
         }
+        if (acao == 3){
+            escolher_peca(matriz);
+        }
+        realizar_acoes(matriz,acao,x,y);
     }
     else {
         cout << "escolha outra peca!" << endl;
@@ -110,20 +127,21 @@ int escolher_peca(int (&matriz)[8][8]){
 
 int main(){
 
-    int x,y;
+    int x;
 
     const int linhas = 8;
     const int colunas = 8;
     int matriz[linhas][colunas];
   
-
-    start_game(matriz);
+    iniciar_tabuleiro(matriz);
     imprimir_tabuleiro(matriz);
-    escolher_peca(matriz);
 
-
-    
-   
-
+    //start_game
+    while(x != 0){
+        escolher_peca(matriz);
+        cout << "digite 0 se quiser parar o jogo" << endl;
+        cout << "digite qualquer numero para continuar" << endl;
+        cin >> x;
+    }
 }
 
