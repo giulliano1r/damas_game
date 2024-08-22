@@ -16,4 +16,4 @@ prefiri usar 1 e 9 por enquanto, ja que o -1 ia quebrar toda a formatação do t
 coisas novas:
 primeira vez usando switch 
 tive que aprender git tbm 
-aprendendo na marra a usar c++ 
+aprendendo na marra a usar c++, #voltapascal
