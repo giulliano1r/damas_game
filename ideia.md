@@ -17,3 +17,9 @@ coisas novas:
 primeira vez usando switch 
 tive que aprender git tbm 
 aprendendo na marra a usar c++, #voltapascal
+
+falta:
+-implementar a função de tomar multiplas peças na mesma jogada
+-telinha de start
+-telinha de vencedor
+-arrumar as bordas
